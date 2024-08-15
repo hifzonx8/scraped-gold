@@ -1,12 +1,12 @@
 # scraped gold
 
-script to scrape gold (and silver) price from logammulia.com
+script used to scrape gold and silver price from logammulia.com
 
-## how 2 use
+## how to use
 
 promise:
 
-```js
+```ts
 scrape().then((data) => {
   // do something
   console.log(data);
@@ -15,7 +15,7 @@ scrape().then((data) => {
 
 async/await:
 
-```js
+```ts
 const data = await scrape();
 ```
 
@@ -29,3 +29,7 @@ type ScrapedData = {
   silver_price: number;
 };
 ```
+
+## things to note
+
+i use module instead of commonjs.
