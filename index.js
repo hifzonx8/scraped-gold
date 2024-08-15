@@ -51,7 +51,6 @@ function scrape() {
         const site_last_update = new Date($("body > section.index-hero > div.hero-price > div.child.child-4 > div > p > span")
             .text()
             .split(": ")[1]);
-        console.log(new Date(site_last_update));
         return {
             scraped_at: now,
             site_last_update,
@@ -60,9 +59,3 @@ function scrape() {
         };
     });
 }
-function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        console.log(yield scrape());
-    });
-}
-main();

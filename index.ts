@@ -39,7 +39,6 @@ export default async function scrape(): Promise<ScrapedData> {
       .text()
       .split(": ")[1]
   );
-  console.log(new Date(site_last_update));
   return {
     scraped_at: now,
     site_last_update,
@@ -47,8 +46,3 @@ export default async function scrape(): Promise<ScrapedData> {
     silver_price,
   };
 }
-async function main() {
-  console.log(await scrape());
-}
-
-main();
