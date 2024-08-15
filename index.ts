@@ -2,7 +2,7 @@ import * as cheerio from "cheerio";
 
 type ScrapedData = {
   scraped_at: Date;
-  site_last_update: Date;
+  data_last_update: Date;
   gold_price: number;
   silver_price: number;
 };
@@ -32,7 +32,7 @@ export default async function scrape(): Promise<ScrapedData> {
       "body > section.index-hero > div.hero-price > div.child.child-3.has-bg.has-overlay.overlay-silver > div > p.price > span.current"
     ).text()
   );
-  const site_last_update = new Date(
+  const data_last_update = new Date(
     $(
       "body > section.index-hero > div.hero-price > div.child.child-4 > div > p > span"
     )
@@ -41,7 +41,7 @@ export default async function scrape(): Promise<ScrapedData> {
   );
   return {
     scraped_at: now,
-    site_last_update,
+    data_last_update,
     gold_price,
     silver_price,
   };
