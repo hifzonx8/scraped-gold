@@ -9,7 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = scrape;
+exports.scrape_sell_price = scrape_sell_price;
+exports.scrape_buyback_price = scrape_buyback_price;
 const cheerio = require("cheerio");
 function parsePrice(text) {
     return parseFloat(text
@@ -17,22 +18,43 @@ function parsePrice(text) {
         .replace(/\./g, "")
         .replace(/,/g, "."));
 }
-function scrape() {
+function parseBuybackPrice(text) {
+    return parseFloat(text.replace(/[^0-9.,]/g, "").replace(/,/g, ""));
+}
+function link_to_cheerio(link) {
     return __awaiter(this, void 0, void 0, function* () {
-        const request = yield fetch("https://www.logammulia.com/id");
+        const request = yield fetch(link);
         const html = yield request.text();
-        const now = new Date();
-        const $ = cheerio.load(html);
+        return cheerio.load(html);
+    });
+}
+function scrape_sell_price() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const scraped_at = new Date();
+        const $ = yield link_to_cheerio("https://www.logammulia.com/id");
         const gold_price = parsePrice($("body > section.index-hero > div.hero-price > div.child.child-2.has-bg.has-overlay.overlay-gold > div > p.price > span.current").text());
         const silver_price = parsePrice($("body > section.index-hero > div.hero-price > div.child.child-3.has-bg.has-overlay.overlay-silver > div > p.price > span.current").text());
         const data_last_update = new Date($("body > section.index-hero > div.hero-price > div.child.child-4 > div > p > span")
             .text()
             .split(": ")[1]);
         return {
-            scraped_at: now,
+            scraped_at,
             data_last_update,
             gold_price,
             silver_price,
+        };
+    });
+}
+function scrape_buyback_price() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const scraped_at = new Date();
+        const $ = yield link_to_cheerio("https://www.logammulia.com/id/sell/gold");
+        const gold_price = parseBuybackPrice($("body > section.section-padding.n-no-padding-bottom > div > div > div.grid-child.n-1200-2per3.n-no-margin-bottom > div > div > div.right > div > div:nth-child(1) > span.value > span.text").text());
+        const data_last_update = new Date($("body > section.section-padding.n-no-padding-bottom > div > div > div.grid-child.n-1200-2per3.n-no-margin-bottom > div > div > div.right > div > div:nth-child(3) > span.value.update > span").text());
+        return {
+            scraped_at,
+            data_last_update,
+            gold_price,
         };
     });
 }
