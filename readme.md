@@ -1,6 +1,6 @@
 # scraped gold
 
-script used to scrape gold and silver price from logammulia.com
+script used to scrape gold and silver price from logammulia.com, indonesia's main source of gold and silver price.
 
 ## how to use
 
