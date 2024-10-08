@@ -1,7 +1,6 @@
 # scraped gold
 
-script used to scrape gold and silver price from logammulia.com, indonesia's main source of gold and silver price.
-
+script used to scrape gold and silver price from logammulia.com, indonesia's main source of gold and silver price. It is the backbone of [hifzonx8/autoscrap](https://github.com/hifzonx8/autoscrap)
 ## how to use
 
 promise:
